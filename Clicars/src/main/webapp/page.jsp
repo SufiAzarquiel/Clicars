@@ -23,39 +23,42 @@
 
 <body>
     <div class="container shadow">
-        <div class="bg-light row align-items-center py-3">
-            <div class="col-2">
-                <a href="Controller?op=inicio">
-                    <img src="img/logo.png" alt="">
+    	<nav class="row navbar navbar-expand-sm navbar-light bg-light">
+            <div class="container">
+                <a class="navbar-brand" href="Controller?op=inicio">
+                	<img alt="logo" src="img/logo.png">
                 </a>
-            </div>
-            <div class="col-10">
-                <div class="row align-items-center px-5 justify-content-center">
-                    <div class="col-9 text-end">
-                        <a href="Controller?op=vamarca&marca=0"
-                            class="text-decoration-none me-2 text-primary h5">Todos</a>
+                <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#collapsibleNavId" aria-controls="collapsibleNavId" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="collapsibleNavId">
+                    <ul class="navbar-nav mx-auto mt-2 mt-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link text-primary" href="Controller?op=vamarca&marca=0">Todos</a>
+                        </li>
                         <c:forEach items="${marcas}" var="marca">
-                        	<a href="Controller?op=vamarca&marca=${marca.id}"
-                            	class="text-decoration-none me-2 text-primary h5">${marca.nombre}</a>
+	                        <li class="nav-item">
+	                            <a class="nav-link text-primary" href="Controller?op=vamarca&marca=${marca.id}">${marca.nombre}</a>
+	                        </li>
                         </c:forEach>
-                    </div>
-                    <!-- etc (TODO: GET FROM DB)-->
-                    <div class="col-3">
-                        <form action="Controller?op=vaorden" method="post">
-                            <select class="form-select form-select-lg text-primary h5" name="orden" id="" onchange="this.form.submit()">
-                                <option value="null" disabled selected hidden>Ordenado por</option>
-                                <option value="null">Sin orden</option>
-                                <option value="nombre">Nombre</option>
-                                <option value="modelo">Modelo</option>
-                                <option value="anio">Año</option>
-                                <option value="km">Kilometros</option>
-                                <option value="cv">Caballos</option>
-                            </select>
-                        </form>
-                    </div>
+                        <li class="nav-item dropdown ms-5">
+                            <a class="nav-link dropdown-toggle text-primary" href="#" id="dropdownId" data-bs-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">Ordenado por</a>
+                            <div class="dropdown-menu" aria-labelledby="dropdownId">
+                                <a class="dropdown-item text-primary" href="Controller?op=vaorden&orden=null">Sin orden</a>
+                                <a class="dropdown-item text-primary" href="Controller?op=vaorden&orden=nombre">Nombre</a>
+                                <a class="dropdown-item text-primary" href="Controller?op=vaorden&orden=modelo">Modelo</a>
+                                <a class="dropdown-item text-primary" href="Controller?op=vaorden&orden=anio">Año</a>
+                                <a class="dropdown-item text-primary" href="Controller?op=vaorden&orden=km">Kilometros</a>
+                                <a class="dropdown-item text-primary" href="Controller?op=vaorden&orden=cv">Caballos</a>
+                            </div>
+                        </li>
+                    </ul>
                 </div>
             </div>
-        </div>
+        </nav>
         <main>
             <div class="row justify-content-center">
             <c:forEach items="${coches}" var="coche">
