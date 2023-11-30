@@ -24,6 +24,8 @@ import model.Marca;
 @WebServlet("/Controller")
 public class Controller extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private int idmarca = 0;
+	private String orden = "";
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -64,6 +66,45 @@ public class Controller extends HttpServlet {
 			}
 			session.setAttribute("coches", coches);
 			session.setAttribute("marcas", marcas);
+			request.getRequestDispatcher("page.jsp").forward(request, response);
+			break;
+		}
+		case "vamarca": {
+			idmarca = Integer.parseInt(request.getParameter("marca"));
+			try {
+				coches = new DAOCoche().getCoches(con, idmarca, orden);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			session.setAttribute("coches", coches);
+			request.getRequestDispatcher("page.jsp").forward(request, response);
+			break;
+		}
+		case "vaorden": {
+			orden = request.getParameter("orden");
+			try {
+				coches = new DAOCoche().getCoches(con, idmarca, orden);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			session.setAttribute("coches", coches);
+			request.getRequestDispatcher("page.jsp").forward(request, response);
+			break;
+		}
+		case "addlike": {
+			int id = Integer.parseInt(request.getParameter("id"));
+			int likes = Integer.parseInt(request.getParameter("likes"));
+			int fav = Integer.parseInt(request.getParameter("fav"));
+			try {
+				DAOCoche dc = new DAOCoche();
+				if (fav == 0) {
+					dc.addLike(id, likes, con);
+				}
+				coches = dc.getCoches(con, idmarca, orden);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			session.setAttribute("coches", coches);
 			request.getRequestDispatcher("page.jsp").forward(request, response);
 			break;
 		}

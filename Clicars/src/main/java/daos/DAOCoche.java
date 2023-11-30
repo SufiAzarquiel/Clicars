@@ -55,13 +55,15 @@ public class DAOCoche {
 		return lista;
 	}
 
-	public int actualizaFav(int idCoche, int currentFav, Connection con) throws SQLException {
+	public int addLike(int idCoche, int likes, Connection con) throws SQLException {
 		int actualizados = -1;
-		int fav = (currentFav == 0) ? 1 : 0;
-		String ordenSQL = "UPDATE coche SET fav=? where id=?";
+
+		likes++;
+		String ordenSQL = "UPDATE coche SET likes=?, fav=? WHERE id=?";
 		PreparedStatement st = con.prepareStatement(ordenSQL);
-		st.setInt(1, fav);
-		st.setInt(2, idCoche);
+		st.setInt(1, likes);
+		st.setInt(2, 1);
+		st.setInt(3, idCoche);
 		actualizados = st.executeUpdate();
 		st.close();
 
